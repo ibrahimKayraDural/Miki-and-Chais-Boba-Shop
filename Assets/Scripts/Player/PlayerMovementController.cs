@@ -5,22 +5,28 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementController : MonoBehaviour
 {
+    public Vector2 PersistentDirection => _persistentDirection;
+
     [SerializeField] float _Speed = 1;
 
     Rigidbody2D _rb;
+    Vector2 _direction = Vector2.zero;
+    Vector2 _persistentDirection = Vector2.right;
     bool _isLookingRight = true;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
-
+    void Update()
+    {
+        _direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        if (_direction != Vector2.zero) _persistentDirection = _direction;
+    }
     void FixedUpdate()
     {
-        Vector2 inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
         Vector2 targetPos = transform.position;
-        targetPos += inputVector * _Speed * Time.fixedDeltaTime;
+        targetPos += _direction * _Speed * Time.fixedDeltaTime;
 
         bool? isHeadingRight = null;
         float xDiff = transform.position.x - targetPos.x;
