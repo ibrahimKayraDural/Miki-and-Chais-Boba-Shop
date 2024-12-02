@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Item;
+using ItemHolder;
 
 [RequireComponent(typeof(PlayerMovementController))]
 public class PlayerInteractor : MonoBehaviour
@@ -29,7 +29,7 @@ public class PlayerInteractor : MonoBehaviour
         ItemHolder_Base ih = hit.collider?.GetComponent<ItemHolder_Base>();
         if (ih == null) return;
 
-        _PlayerItemHolder.ReplaceItems(ih);
+        ih.ReplaceItems(_PlayerItemHolder);
     }
 
     private void OnDrawGizmos()

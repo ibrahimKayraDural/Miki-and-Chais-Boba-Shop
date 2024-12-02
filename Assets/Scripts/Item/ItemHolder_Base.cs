@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Item
+namespace ItemHolder
 {
     public abstract class ItemHolder_Base : MonoBehaviour
     {
@@ -23,24 +23,25 @@ namespace Item
             OnItemHeld(_heldItem);
             return true;
         }
-        public virtual ItemData TryPickItem()
+        public virtual bool TryPickItem(out ItemData item)
         {
-            ItemData itemToReturn = _heldItem;
+            item = _heldItem;
 
             _heldItem = null;
             _HeldItemRenderer.sprite = null;
 
-            return itemToReturn;
+            return true;
         }
-        public void ReplaceItems(ItemHolder_Base other)
+        public virtual bool ReplaceItems(ItemHolder_Base other)
         {
-            ItemData item1 = TryPickItem();
-            ItemData item2 = other.TryPickItem();
+            TryPickItem(out ItemData item1);
+            other.TryPickItem(out ItemData item2);
 
             other.TryPutItem(item1);
             TryPutItem(item2);
+            return true;
         }
 
-        internal abstract void OnItemHeld(ItemData item);
+        internal virtual void OnItemHeld(ItemData item) { }
     } 
 }

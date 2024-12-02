@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Item
+namespace ItemHolder
 {
     public class ItemHolder_Basic : ItemHolder_Base
     {
@@ -13,7 +13,5 @@ namespace Item
         {
             if (_StarterItem != null) TryPutItem(_StarterItem);
         }
-
-        internal override void OnItemHeld(ItemData item) { }
     }
 }

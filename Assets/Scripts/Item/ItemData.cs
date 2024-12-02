@@ -14,4 +14,6 @@ public class ItemData : ScriptableObject
     [SerializeField] string _ID = GLOBALVALUES.UnassignedString;
     [SerializeField] Sprite _UISprite;
     [SerializeField] Vector2 _HoldingOffset = Vector2.zero;
+
+    public bool Compare(ItemData other) => other.ID == ID;
 }
