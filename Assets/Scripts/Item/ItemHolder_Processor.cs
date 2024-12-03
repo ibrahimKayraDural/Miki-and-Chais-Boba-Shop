@@ -65,12 +65,12 @@ namespace ItemHolder
             }
             return false;
         }
+        
         void StartProcess()
         {
             StopCoroutine(nameof(Process));
             StartCoroutine(nameof(Process));
         }
-
         IEnumerator Process()
         {
             float currentProgress = 0;
