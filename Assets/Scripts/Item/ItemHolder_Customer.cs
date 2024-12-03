@@ -6,8 +6,8 @@ namespace ItemHolder
 {
     public class ItemHolder_Customer : ItemHolder_Base
     {
-        [SerializeField] ItemData _WantedItem;
-        [SerializeField] int _ItemPrice = 10;
+        [SerializeField] List<ItemData> _PossibleItems;
+        [SerializeField] FloatRange CooldownRange = new FloatRange(5, 10);
 
         DayManager _DayManager
         {
@@ -19,9 +19,20 @@ namespace ItemHolder
         }
         DayManager AUTO_DayManager = null;
 
+        ItemData _wantedItem;
+        float _customerOrderTime = -1;
+
         private void Awake()
         {
-            _HeldItemRenderer.sprite = _WantedItem.UISprite;
+            RequestNewItem();
+        }
+
+        void RequestNewItem()
+        {
+            if (_PossibleItems.Count <= 0) return;
+            _wantedItem = _PossibleItems[Random.Range(0, _PossibleItems.Count)];
+            _HeldItemRenderer.sprite = _wantedItem.UISprite;
+            _customerOrderTime = Time.time;
         }
 
         public override bool TryPickItem(out ItemData item)
@@ -33,16 +44,45 @@ namespace ItemHolder
         public override bool TryPutItem(ItemData item)
         {
             if (_heldItem != null) return false;
-            if (item != _WantedItem) return false;
+            if (item == null) return false;
+            if (item != _wantedItem) return false;
 
-            _DayManager.AddMoney(_ItemPrice);
+            OnSoldItem();
 
             return true;
         }
 
+        void OnSoldItem()
+        {
+            int totalMoney = _wantedItem.Price;
+            int tip = _wantedItem.MaxTip;
+            float timeSpent = Time.time - _customerOrderTime;
+            float noTipDur = Mathf.Max(_wantedItem.NoTipAfterSeconds, 0.1f);
+            float ratio = Mathf.Clamp(1 - (timeSpent / noTipDur), 0, 1);
+            tip = Mathf.CeilToInt(ratio * tip);
+            _DayManager.AddMoney(totalMoney + tip);
+
+            _wantedItem = null;
+            _HeldItemRenderer.sprite = null;
+            _customerOrderTime = -1;
+
+            RunCooldown();
+        }
+
+        void RunCooldown()
+        {
+            StopCoroutine(nameof(Cooldown));
+            StartCoroutine(nameof(Cooldown));
+        }
+        IEnumerator Cooldown()
+        {
+            yield return new WaitForSeconds(CooldownRange.Random());
+            RequestNewItem();
+        }
+
         public override bool ReplaceItems(ItemHolder_Base other)
         {
-            if (other.HeldItem != _WantedItem) return false;
+            if (other.HeldItem != _wantedItem) return false;
 
             other.TryPickItem(out ItemData item);
             other.TryPutItem(null);
@@ -51,5 +91,5 @@ namespace ItemHolder
 
             return true;
         }
-    } 
+    }
 }
