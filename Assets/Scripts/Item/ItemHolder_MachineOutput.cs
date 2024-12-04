@@ -17,7 +17,7 @@ namespace ItemHolder
             if (_OutputItem == null) return;
 
             _heldItem = _OutputItem;
-            _HeldItemRenderer.sprite = _OutputItem.UISprite;
+            SetSpriteByData(_OutputItem);
 
             OnItemHeld(_heldItem);
             return;
@@ -29,7 +29,7 @@ namespace ItemHolder
             item = _heldItem;
 
             _heldItem = null;
-            _HeldItemRenderer.sprite = null;
+            SetSpriteByData(null);
             Owner.CheckStatus();
 
             return true;

@@ -14,5 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: Head Ball
   _ID: head-ball
+  _UseSpritePrefab: 0
   _UISprite: {fileID: 21300000, guid: f3b98c4b6842da943bba8e4a6c1e27d0, type: 3}
+  _SpritePrefab: {fileID: 0}
   _HoldingOffset: {x: -0.325, y: 0.325}
+  _Price: 100
+  _MaxTip: 20
+  _NoTipAfterSeconds: 5

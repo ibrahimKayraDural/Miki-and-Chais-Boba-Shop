@@ -40,7 +40,7 @@ namespace ItemHolder
             item = _heldItem;
 
             _heldItem = null;
-            _HeldItemRenderer.sprite = null;
+            SetSpriteByData(null);
 
             return true;
         }
@@ -93,7 +93,7 @@ namespace ItemHolder
         void OnProcessDone()
         {
             _heldItem = _Product;
-            _HeldItemRenderer.sprite = _heldItem.UISprite;
+            SetSpriteByData(_heldItem);
             OnItemHeld(_heldItem);
 
             _inProcess = false;

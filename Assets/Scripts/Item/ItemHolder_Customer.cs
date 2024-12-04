@@ -31,7 +31,7 @@ namespace ItemHolder
         {
             if (_PossibleItems.Count <= 0) return;
             _wantedItem = _PossibleItems[Random.Range(0, _PossibleItems.Count)];
-            _HeldItemRenderer.sprite = _wantedItem.UISprite;
+            SetSpriteByData(_wantedItem);
             _customerOrderTime = Time.time;
         }
 
@@ -63,7 +63,7 @@ namespace ItemHolder
             _DayManager.AddMoney(totalMoney + tip);
 
             _wantedItem = null;
-            _HeldItemRenderer.sprite = null;
+            SetSpriteByData(null);
             _customerOrderTime = -1;
 
             RunCooldown();

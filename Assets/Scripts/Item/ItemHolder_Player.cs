@@ -8,14 +8,14 @@ namespace ItemHolder
     {
         public override bool TryPutItem(ItemData item)
         {
-            if (item != null) _HeldItemRenderer.transform.localPosition = item.HoldingOffset;
+            if (item != null) _SpriteParent.transform.localPosition = item.HoldingOffset;
 
             return base.TryPutItem(item);
         }
 
         public override bool TryPickItem(out ItemData item)
         {
-            _HeldItemRenderer.transform.localPosition = Vector3.zero;
+            _SpriteParent.transform.localPosition = Vector3.zero;
             return base.TryPickItem(out item);
         }
     }

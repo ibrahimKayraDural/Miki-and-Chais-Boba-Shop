@@ -21,7 +21,7 @@ namespace ItemHolder
         public void ResetInput()
         {
             _isReady = false;
-            _HeldItemRenderer.sprite = _RequiredItem.UISprite;
+            SetSpriteByData(_RequiredItem);
         }
 
         public override bool TryPutItem(ItemData item)
@@ -30,7 +30,7 @@ namespace ItemHolder
             if (item != _RequiredItem) return false;
 
             _isReady = true;
-            _HeldItemRenderer.sprite = _ReadySprite;
+            SetSprite(_ReadySprite);
             Owner.CheckStatus();
 
             return true;
@@ -42,7 +42,7 @@ namespace ItemHolder
         }
         public override bool ReplaceItems(ItemHolder_Base other)
         {
-            if(TryPutItem(other.HeldItem))
+            if (TryPutItem(other.HeldItem))
             {
                 other.TryPickItem(out _);
                 return true;
@@ -50,5 +50,5 @@ namespace ItemHolder
 
             return false;
         }
-    } 
+    }
 }
