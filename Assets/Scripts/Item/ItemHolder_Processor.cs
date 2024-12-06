@@ -22,7 +22,7 @@ namespace ItemHolder
             _Slider.gameObject.SetActive(false);
         }
 
-        public override bool TryPutItem(ItemData item)
+        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
         {
             if (_inProcess) return false;
             if (_heldItem != null) return false;
@@ -33,14 +33,17 @@ namespace ItemHolder
 
             return true;
         }
-        public override bool TryPickItem(out ItemData item)
+        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
         {
             item = null;
+            instantiatedSpritePrefab = null;
+
             if (HeldItem != _Product) return false;
             item = _heldItem;
+            instantiatedSpritePrefab = _instantiatedSpritePrefab;
 
             _heldItem = null;
-            SetSpriteByData(null);
+            SetSpriteByData(null, null);
 
             return true;
         }
@@ -49,23 +52,23 @@ namespace ItemHolder
             ItemData item = other.HeldItem;
             if (item == null)
             {
-                if (TryPickItem(out _))
+                if (TryPickItem(out _, out _))
                 {
-                    other.TryPutItem(_Product);
+                    other.TryPutItem(_Product, null);
                     return true;
                 }
             }
             else if (item == _Ingredient)
             {
-                if (TryPutItem(_Ingredient))
+                if (TryPutItem(_Ingredient, null))
                 {
-                    other.TryPickItem(out _);
+                    other.TryPickItem(out _, out _);
                     return true;
                 }
             }
             return false;
         }
-        
+
         void StartProcess()
         {
             StopCoroutine(nameof(Process));
@@ -75,7 +78,7 @@ namespace ItemHolder
         {
             float currentProgress = 0;
             _Slider.maxValue = _ProcessTime;
-            _Slider.value = 0; 
+            _Slider.value = 0;
             _Slider.gameObject.SetActive(true);
 
             _inProcess = true;
@@ -93,7 +96,7 @@ namespace ItemHolder
         void OnProcessDone()
         {
             _heldItem = _Product;
-            SetSpriteByData(_heldItem);
+            SetSpriteByData(_heldItem, null);
             OnItemHeld(_heldItem);
 
             _inProcess = false;

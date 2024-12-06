@@ -1,6 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,17 +11,17 @@ namespace ItemHolder
 {
     public class ItemHolder_BobaMachine : ItemHolder_Base
     {
-        [SerializeField] ItemData Milk;
-        [SerializeField] ItemData Tea;
-        [SerializeField] ItemData Boba;
-        [SerializeField] ItemData Cup;
-        [SerializeField] ItemData _Product;
+        [SerializeField] bool _CanAddWhenInProcess = true;
         [SerializeField] float _ProcessTime = 1;
         [SerializeField] float _ProgressInterval = .05f;
+        [SerializeField] ItemData Milk;
+        [SerializeField] ItemData _Tea;
+        [SerializeField] ItemData _Boba;
+        [SerializeField] ItemData _Cup;
         [SerializeField] Slider _Slider;
         [SerializeField] Animator _WarningAnimator;
         [SerializeField] TextMeshProUGUI _WarningText;
-        [SerializeField, SerializedDictionary("ID", "Aroma")] SerializedDictionary<string, BobaCup.TeaAroma> AromaIdToEnum;
+        [SerializeField] List<ItemData> _AcceptedAromas;
 
         [SerializeField] UnityEvent OnMilkAdded;
         [SerializeField] UnityEvent OnTeaAdded;
@@ -39,7 +40,7 @@ namespace ItemHolder
             _Slider.value = 0;
         }
 
-        public override bool TryPutItem(ItemData item)
+        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
         {
             if (HeldItem != null)
             {
@@ -47,7 +48,7 @@ namespace ItemHolder
                 return false;
             }
             if (item == null) return false;
-            if (_inProcess)
+            if (_inProcess && _CanAddWhenInProcess == false)
             {
                 RunWarningText("Wait untill the process is finished...");
                 return false;
@@ -60,20 +61,20 @@ namespace ItemHolder
                 OnMilkAdded?.Invoke();
                 TryStartProcess();
             }
-            else if (item == Tea)
+            else if (item == _Tea)
             {
                 if (_currentCup.HasTea) return false;
                 _currentCup.HasTea = true;
                 OnTeaAdded?.Invoke();
                 TryStartProcess();
             }
-            else if (item == Boba)
+            else if (item == _Boba)
             {
                 if (_currentCup.HasBoba) return false;
                 _currentCup.HasBoba = true;
                 OnBobaAdded?.Invoke();
             }
-            else if (item == Cup)
+            else if (item == _Cup)
             {
                 if ((_currentCup.HasMilk || _currentCup.HasTea) == false)
                 {
@@ -86,14 +87,10 @@ namespace ItemHolder
             }
             else
             {
-                if (_currentCup.AromaType != BobaCup.TeaAroma.NONE) return false;
+                if (_currentCup.Aroma != null) return false;
+                if (_AcceptedAromas.Contains(item) == false) return false;
 
-                string id = item.ID;
-                var keys = AromaIdToEnum.Keys;
-                foreach (var k in keys) if (k == id) goto FoundID;
-                return false;
-                FoundID:;
-                _currentCup.AromaType = AromaIdToEnum[id];
+                _currentCup.Aroma = item;
                 OnAromaAdded?.Invoke();
             }
 
@@ -110,16 +107,19 @@ namespace ItemHolder
             }
         }
 
-        public override bool TryPickItem(out ItemData item)
+        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
         {
             item = null;
+            instantiatedSpritePrefab = null;
+
             if (_inProcess) return false;
             if (HeldItem == null) return false;
 
             item = _heldItem;
+            instantiatedSpritePrefab = _instantiatedSpritePrefab;
 
             _heldItem = null;
-            SetSpriteByData(null);
+            SetSpriteByData(null, null);
             TryStartProcess();
 
             return true;
@@ -128,14 +128,14 @@ namespace ItemHolder
         {
             if (other.HeldItem == null)
             {
-                TryPickItem(out ItemData item);
-                other.TryPutItem(item);
+                TryPickItem(out ItemData item, out GameObject isp);
+                other.TryPutItem(item, isp);
             }
             else
             {
-                if (TryPutItem(other.HeldItem))
+                if (TryPutItem(other.HeldItem, null))
                 {
-                    other.TryPickItem(out _);
+                    other.TryPickItem(out _, out _);
                 }
             }
 
@@ -144,6 +144,7 @@ namespace ItemHolder
 
         void TryStartProcess()
         {
+            if (_inProcess) return;
             if ((_currentCup.HasMilk || _currentCup.HasTea) == false) return;
             if (_cupAdded == false) return;
             if (HeldItem != null) return;
@@ -170,16 +171,47 @@ namespace ItemHolder
         }
         void OnProcessDone()
         {
+            if (ManageCupSpawn())
+            {
+                _heldItem = _Cup;
+                OnItemHeld(_heldItem);
+            }
+
             _currentCup = new BobaCup();
             _cupAdded = false;
-
-            _heldItem = _Product;
-            SetSpriteByData(_heldItem);
-            OnItemHeld(_heldItem);
             OnReset?.Invoke();
             _Slider.value = 0;
-
             _inProcess = false;
+        }
+
+        bool ManageCupSpawn()
+        {
+            foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
+            _instantiatedSpritePrefab = null;
+
+            if (_Cup != null && _Cup.SpritePrefab != null)
+            {
+                var go = Instantiate(_Cup.SpritePrefab, _SpriteParent);
+                go.transform.localPosition = Vector3.zero;
+                go.transform.localScale = Vector3.one;
+
+                if (go.TryGetComponent(out BobaCupController bcc))
+                {
+                    bcc.Initialize(_currentCup);
+                    _instantiatedSpritePrefab = go;
+                }
+                else
+                {
+                    Destroy(go);
+                    goto ThrowError;
+                }
+            }
+            else goto ThrowError;
+
+            return true;
+
+            ThrowError: Debug.LogError("_Product is not properly set. It must have a SpritePrefab with a BobaCupController Attached.");
+            return false;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ItemHolder
 
         void Awake()
         {
-            if (_StarterItem != null) TryPutItem(_StarterItem);
+            if (_StarterItem != null) TryPutItem(_StarterItem, null);
         }
     }
 }

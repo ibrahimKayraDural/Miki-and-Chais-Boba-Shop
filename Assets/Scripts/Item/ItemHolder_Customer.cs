@@ -31,17 +31,18 @@ namespace ItemHolder
         {
             if (_PossibleItems.Count <= 0) return;
             _wantedItem = _PossibleItems[Random.Range(0, _PossibleItems.Count)];
-            SetSpriteByData(_wantedItem);
+            SetSpriteByData(_wantedItem, null);
             _customerOrderTime = Time.time;
         }
 
-        public override bool TryPickItem(out ItemData item)
+        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
         {
             item = null;
+            instantiatedSpritePrefab = null;
             return false;
         }
 
-        public override bool TryPutItem(ItemData item)
+        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
         {
             if (_heldItem != null) return false;
             if (item == null) return false;
@@ -63,7 +64,7 @@ namespace ItemHolder
             _DayManager.AddMoney(totalMoney + tip);
 
             _wantedItem = null;
-            SetSpriteByData(null);
+            SetSpriteByData(null, null);
             _customerOrderTime = -1;
 
             RunCooldown();
@@ -84,10 +85,10 @@ namespace ItemHolder
         {
             if (other.HeldItem != _wantedItem) return false;
 
-            other.TryPickItem(out ItemData item);
-            other.TryPutItem(null);
+            other.TryPickItem(out ItemData item, out _);
+            other.TryPutItem(null, null);
 
-            TryPutItem(item);
+            TryPutItem(item, null);
 
             return true;
         }

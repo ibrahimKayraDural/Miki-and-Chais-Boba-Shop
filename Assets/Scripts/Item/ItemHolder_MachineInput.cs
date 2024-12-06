@@ -21,10 +21,10 @@ namespace ItemHolder
         public void ResetInput()
         {
             _isReady = false;
-            SetSpriteByData(_RequiredItem);
+            SetSpriteByData(_RequiredItem, null);
         }
 
-        public override bool TryPutItem(ItemData item)
+        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
         {
             if (_isReady) return false;
             if (item != _RequiredItem) return false;
@@ -35,16 +35,17 @@ namespace ItemHolder
 
             return true;
         }
-        public override bool TryPickItem(out ItemData item)
+        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
         {
             item = null;
+            instantiatedSpritePrefab = null;
             return false;
         }
         public override bool ReplaceItems(ItemHolder_Base other)
         {
-            if (TryPutItem(other.HeldItem))
+            if (TryPutItem(other.HeldItem, null))
             {
-                other.TryPickItem(out _);
+                other.TryPickItem(out _, out _);
                 return true;
             }
 

@@ -4,44 +4,60 @@ using UnityEngine;
 
 public class BobaCup
 {
-    public enum TeaAroma { NONE, Strawberry, Apple, Orange }
-
     public bool HasMilk;
     public bool HasTea;
     public bool HasBoba;
-    public TeaAroma AromaType;
+    public ItemData Aroma;
 
     public BobaCup()
     {
         HasMilk = false;
         HasTea = false;
         HasBoba = false;
-        AromaType = TeaAroma.NONE;
+        Aroma = null;
     }
-    public BobaCup(bool hasMilk, bool hasTea, bool hasBoba, TeaAroma aromaType)
+    public BobaCup(bool hasMilk, bool hasTea, bool hasBoba, ItemData aroma)
     {
         HasMilk = hasMilk;
         HasTea = hasTea;
         HasBoba = hasBoba;
-        AromaType = aromaType;
+        Aroma = aroma;
     }
     public BobaCup(bool hasMilk, bool hasTea, bool hasBoba)
     {
         HasMilk = hasMilk;
         HasTea = hasTea;
         HasBoba = hasBoba;
-        AromaType = TeaAroma.NONE;
+        Aroma = null;
     }
 }
-
 public class BobaCupController : MonoBehaviour
 {
+    public BobaCup CupData => _cupData;
+
     [SerializeField] SpriteRenderer Lid1;
     [SerializeField] SpriteRenderer Lid2;
     [SerializeField] SpriteRenderer Water;
     [SerializeField] SpriteRenderer AromaIcon;
     [SerializeField] SpriteRenderer Boba;
-
     [SerializeField] Color TeaColor = Color.red;
     [SerializeField] Color MilkColor = Color.white;
+
+    BobaCup _cupData = null;
+
+    public void Initialize(BobaCup cup)
+    {
+        _cupData = cup;
+
+        //Debug.Log($"milk:{cup.HasMilk}, tea:{cup.HasTea}, boba{cup.HasBoba}, aroma{cup.Aroma}");
+
+        Lid1.color = cup.HasTea ? TeaColor : MilkColor;
+        Lid2.color = cup.HasMilk ? MilkColor : TeaColor;
+
+        if (cup.HasMilk && cup.HasTea) Water.color = Color.Lerp(TeaColor, MilkColor, .5f);
+        else Water.color = cup.HasTea ? TeaColor : MilkColor;
+
+        if (cup.Aroma != null) AromaIcon.sprite = cup.Aroma.UISprite;
+        Boba.gameObject.SetActive(cup.HasBoba);
+    }
 }

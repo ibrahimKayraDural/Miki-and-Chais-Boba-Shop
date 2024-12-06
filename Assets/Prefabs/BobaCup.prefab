@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 2588841337720319285}
   - component: {fileID: 2927891265059608141}
   m_Layer: 0
-  m_Name: tea
+  m_Name: water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: 758176149, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9339623, g: 0.92342883, b: 0.876691, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -326,7 +326,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: 2146654495, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9339623, g: 0.92342883, b: 0.876691, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -352,7 +352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8901758466410785706
 Transform:
   m_ObjectHideFlags: 0
@@ -445,9 +445,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6263505023914686139}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.7602535, y: 1.7602535, z: 3.520507}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5138617704323637353}
@@ -470,13 +470,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79a3e0150dad484b9b1665ab99e6517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lid1: {fileID: 0}
-  Lid2: {fileID: 0}
-  Water: {fileID: 0}
-  AromaIcon: {fileID: 0}
-  Boba: {fileID: 0}
-  TeaColor: {r: 1, g: 0, b: 0, a: 1}
-  MilkColor: {r: 1, g: 1, b: 1, a: 1}
+  _CupData:
+    HasMilk: 0
+    HasTea: 0
+    HasBoba: 0
+    Aroma: {fileID: 0}
+  Lid1: {fileID: 5716736513613049596}
+  Lid2: {fileID: 7694131963447318129}
+  Water: {fileID: 2927891265059608141}
+  AromaIcon: {fileID: 3644219143558801775}
+  Boba: {fileID: 6931137274024841260}
+  TeaColor: {r: 0.8490566, g: 0.433847, b: 0.26032397, a: 1}
+  MilkColor: {r: 0.9339623, g: 0.92342883, b: 0.876691, a: 1}
 --- !u!1 &8336407401223670651
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +556,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: -1880519521, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8490566, g: 0.433847, b: 0.26032397, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
