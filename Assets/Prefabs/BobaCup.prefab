@@ -242,7 +242,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: 758176149, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 0.9339623, g: 0.92342883, b: 0.876691, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -326,7 +326,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: 2146654495, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 0.9339623, g: 0.92342883, b: 0.876691, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -410,7 +410,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 40
   m_Sprite: {fileID: -1602740101, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -451,11 +451,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5138617704323637353}
-  - {fileID: 8901758466410785706}
   - {fileID: 2182127166122124237}
   - {fileID: 8906261706272904905}
   - {fileID: 2588841337720319285}
   - {fileID: 752175707095209583}
+  - {fileID: 8901758466410785706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9147133849297038926
@@ -470,11 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79a3e0150dad484b9b1665ab99e6517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _CupData:
-    HasMilk: 0
-    HasTea: 0
-    HasBoba: 0
-    Aroma: {fileID: 0}
   Lid1: {fileID: 5716736513613049596}
   Lid2: {fileID: 7694131963447318129}
   Water: {fileID: 2927891265059608141}
@@ -556,7 +551,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 30
   m_Sprite: {fileID: -1880519521, guid: f3fddffc0ad436243b1023b1cac327cf, type: 3}
-  m_Color: {r: 0.8490566, g: 0.433847, b: 0.26032397, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
