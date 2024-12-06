@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9c331397347b34dbf20e2460e6900b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _CheckSurroundingsForItems: 1
   _RaycastLenght: 0.75
   _ReceiverLayer:
     serializedVersion: 2

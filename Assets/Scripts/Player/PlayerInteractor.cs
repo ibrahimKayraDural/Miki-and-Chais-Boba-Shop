@@ -6,6 +6,8 @@ using ItemHolder;
 [RequireComponent(typeof(PlayerMovementController))]
 public class PlayerInteractor : MonoBehaviour
 {
+    [SerializeField, Tooltip("If enabled, looks at up, right, down then left for items when faced direction has no items.")]
+    bool _CheckSurroundingsForItems = true;
     [SerializeField] float _RaycastLenght = 1;
     [SerializeField] LayerMask _ReceiverLayer = 1 << 7;
     [SerializeField] ItemHolder_Player _PlayerItemHolder;
@@ -27,9 +29,21 @@ public class PlayerInteractor : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, _RaycastLenght, _ReceiverLayer);
         ItemHolder_Base ih = hit.collider?.GetComponent<ItemHolder_Base>();
-        if (ih == null) return;
 
-        ih.ReplaceItems(_PlayerItemHolder);
+        if (ih == null && _CheckSurroundingsForItems)//check surroundings if couldnt find anything
+        {
+            float rotation = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                Vector3 dir = Quaternion.Euler(0, 0, rotation) * Vector3.up;
+                hit = Physics2D.Raycast(transform.position, dir, _RaycastLenght, _ReceiverLayer);
+                ih = hit.collider?.GetComponent<ItemHolder_Base>();
+                if (ih != null) break;
+                rotation -= 90;
+            }
+        }
+
+        ih?.ReplaceItems(_PlayerItemHolder);
     }
 
     private void OnDrawGizmos()
