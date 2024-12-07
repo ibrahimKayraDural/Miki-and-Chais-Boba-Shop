@@ -20,4 +20,4 @@ MonoBehaviour:
   _HoldingOffset: {x: 0, y: 0}
   _Price: 10
   _MaxTip: 20
-  _NoTipAfterSeconds: 5
+  _NoTipAfterSeconds: 20

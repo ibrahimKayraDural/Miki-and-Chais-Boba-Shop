@@ -7,6 +7,13 @@ public class DayManager : MonoBehaviour
 {
     public static DayManager Instance { get; private set; } = null;
 
+    public Vector2 CameraBounds => _CameraBounds;
+    public Vector2 CameraBoundsOffset => _CameraBoundsOffset;
+
+    [Header("Camera Bounds")]
+    [SerializeField] Vector2 _CameraBounds = new Vector2(16, 9);
+    [SerializeField] Vector2 _CameraBoundsOffset = Vector2.zero;
+    [Header("Reference")]
     [SerializeField] TextMeshProUGUI _MoneyTM;
 
     int _todaysMoney = 0;
@@ -23,5 +30,11 @@ public class DayManager : MonoBehaviour
     {
         _todaysMoney = Mathf.Clamp(setTo, 0, GLOBALVALUES.MaxMoneyPerDay);
         _MoneyTM.text = _todaysMoney.ToString();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(_CameraBoundsOffset, _CameraBounds);
     }
 }
