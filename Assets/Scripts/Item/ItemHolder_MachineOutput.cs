@@ -19,7 +19,6 @@ namespace ItemHolder
             _heldItem = _OutputItem;
             SetSpriteByData(_OutputItem, null);
 
-            OnItemHeld(_heldItem);
             return;
         }
 

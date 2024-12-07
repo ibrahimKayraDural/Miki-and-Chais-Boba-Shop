@@ -38,12 +38,17 @@ public class PlayerInteractor : MonoBehaviour
                 Vector3 dir = Quaternion.Euler(0, 0, rotation) * Vector3.up;
                 hit = Physics2D.Raycast(transform.position, dir, _RaycastLenght, _ReceiverLayer);
                 ih = hit.collider?.GetComponent<ItemHolder_Base>();
-                if (ih != null) break;
+                if (TryReplacing()) break;
                 rotation -= 90;
             }
         }
+        else TryReplacing();
 
-        ih?.ReplaceItems(_PlayerItemHolder);
+        bool TryReplacing()
+        {
+            if (ih == null || _PlayerItemHolder == null) return false;
+            return ih.ReplaceItems(_PlayerItemHolder);
+        }
     }
 
     private void OnDrawGizmos()

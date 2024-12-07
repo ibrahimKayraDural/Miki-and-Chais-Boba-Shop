@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ItemHolder
 {
-    public class ItemHolder_Customer : ItemHolder_Base
+    public class ItemHolder_CustomerBasic : ItemHolder_Base
     {
         [SerializeField] List<ItemData> _PossibleItems;
         [SerializeField] FloatRange CooldownRange = new FloatRange(5, 10);

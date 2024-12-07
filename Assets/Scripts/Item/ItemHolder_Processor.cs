@@ -97,7 +97,6 @@ namespace ItemHolder
         {
             _heldItem = _Product;
             SetSpriteByData(_heldItem, null);
-            OnItemHeld(_heldItem);
 
             _inProcess = false;
         }

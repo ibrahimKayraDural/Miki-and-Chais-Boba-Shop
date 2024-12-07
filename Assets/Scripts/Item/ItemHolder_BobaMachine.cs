@@ -14,14 +14,9 @@ namespace ItemHolder
         [SerializeField] bool _CanAddWhenInProcess = true;
         [SerializeField] float _ProcessTime = 1;
         [SerializeField] float _ProgressInterval = .05f;
-        [SerializeField] ItemData Milk;
-        [SerializeField] ItemData _Tea;
-        [SerializeField] ItemData _Boba;
-        [SerializeField] ItemData _Cup;
         [SerializeField] Slider _Slider;
         [SerializeField] Animator _WarningAnimator;
         [SerializeField] TextMeshProUGUI _WarningText;
-        [SerializeField] List<ItemData> _AcceptedAromas;
 
         [SerializeField] UnityEvent OnMilkAdded;
         [SerializeField] UnityEvent OnTeaAdded;
@@ -29,6 +24,13 @@ namespace ItemHolder
         [SerializeField] UnityEvent OnAromaAdded;
         [SerializeField] UnityEvent OnCupAdded;
         [SerializeField] UnityEvent OnReset;
+
+        ItemData _milk => _BobaDatabase.Milk;
+        ItemData _tea => _BobaDatabase.Tea;
+        ItemData _boba => _BobaDatabase.Boba;
+        ItemData _cup => _BobaDatabase.Cup;
+        List<ItemData> _acceptedAromas => _BobaDatabase.Aromas;
+        BobaDatabase _BobaDatabase => GLOBALVALUES.BobaDatabaseRef;
 
         bool _inProcess;
         BobaCup _currentCup = new BobaCup();
@@ -54,27 +56,27 @@ namespace ItemHolder
                 return false;
             }
 
-            if (item == Milk)
+            if (item == _milk)
             {
                 if (_currentCup.HasMilk) return false;
                 _currentCup.HasMilk = true;
                 OnMilkAdded?.Invoke();
                 TryStartProcess();
             }
-            else if (item == _Tea)
+            else if (item == _tea)
             {
                 if (_currentCup.HasTea) return false;
                 _currentCup.HasTea = true;
                 OnTeaAdded?.Invoke();
                 TryStartProcess();
             }
-            else if (item == _Boba)
+            else if (item == _boba)
             {
                 if (_currentCup.HasBoba) return false;
                 _currentCup.HasBoba = true;
                 OnBobaAdded?.Invoke();
             }
-            else if (item == _Cup)
+            else if (item == _cup)
             {
                 if ((_currentCup.HasMilk || _currentCup.HasTea) == false)
                 {
@@ -88,7 +90,7 @@ namespace ItemHolder
             else
             {
                 if (_currentCup.Aroma != null) return false;
-                if (_AcceptedAromas.Contains(item) == false) return false;
+                if (_acceptedAromas.Contains(item) == false) return false;
 
                 _currentCup.Aroma = item;
                 OnAromaAdded?.Invoke();
@@ -171,11 +173,7 @@ namespace ItemHolder
         }
         void OnProcessDone()
         {
-            if (ManageCupSpawn())
-            {
-                _heldItem = _Cup;
-                OnItemHeld(_heldItem);
-            }
+            if (ManageCupSpawn()) _heldItem = _cup;
 
             _currentCup = new BobaCup();
             _cupAdded = false;
@@ -189,9 +187,9 @@ namespace ItemHolder
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
             _instantiatedSpritePrefab = null;
 
-            if (_Cup != null && _Cup.SpritePrefab != null)
+            if (_cup != null && _cup.SpritePrefab != null)
             {
-                var go = Instantiate(_Cup.SpritePrefab, _SpriteParent);
+                var go = Instantiate(_cup.SpritePrefab, _SpriteParent);
                 go.transform.localPosition = Vector3.zero;
                 go.transform.localScale = Vector3.one;
 

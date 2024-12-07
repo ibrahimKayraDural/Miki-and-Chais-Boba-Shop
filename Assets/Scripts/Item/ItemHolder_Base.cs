@@ -8,6 +8,7 @@ namespace ItemHolder
     public abstract class ItemHolder_Base : MonoBehaviour
     {
         public ItemData HeldItem => _heldItem;
+        public GameObject InstantiatedSpritePrefab => _instantiatedSpritePrefab;
 
         [SerializeField] internal Transform _SpriteParent;
         [SerializeField] internal string _SortLayer = "Item";
@@ -30,6 +31,9 @@ namespace ItemHolder
             }
 
             var targetPrefab = instantiatedSpritePrefab ?? item.SpritePrefab;
+            ISpritePrefabScript OldISPS = null;
+            if (instantiatedSpritePrefab)
+                OldISPS = instantiatedSpritePrefab.GetComponentInChildren<ISpritePrefabScript>();
 
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
 
@@ -37,6 +41,7 @@ namespace ItemHolder
             if (item != null)
             {
                 var go = Instantiate(targetPrefab, _SpriteParent);
+                go.GetComponent<ISpritePrefabScript>()?.Reinitialize(OldISPS);
                 go.transform.localPosition = Vector3.zero;
                 go.transform.localScale = Vector3.one;
 
@@ -68,7 +73,6 @@ namespace ItemHolder
             _heldItem = item;
             SetSpriteByData(item, instantiatedSpritePrefab);
 
-            OnItemHeld(_heldItem);
             return true;
         }
         public virtual bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
@@ -83,6 +87,8 @@ namespace ItemHolder
         }
         public virtual bool ReplaceItems(ItemHolder_Base other)
         {
+            if (other.HeldItem == null && HeldItem == null) return false;
+
             TryPickItem(out ItemData item1, out GameObject isp1);
             other.TryPickItem(out ItemData item2, out GameObject isp2);
 
@@ -90,7 +96,5 @@ namespace ItemHolder
             TryPutItem(item2, isp2);
             return true;
         }
-
-        internal virtual void OnItemHeld(ItemData item) { }
     }
 }
