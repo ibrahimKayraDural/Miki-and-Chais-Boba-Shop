@@ -38,6 +38,11 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
+    public void Deactivate()
+    {
+        enabled = false;
+    }
+
     void Flip()
     {
         _isLookingRight = !_isLookingRight;

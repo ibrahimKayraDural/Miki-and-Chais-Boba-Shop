@@ -77,6 +77,12 @@ public class PlayerCamera : MonoBehaviour
         transform.position = targetPos;
     }
 
+    public void Deactivate()
+    {
+        _Camera.gameObject.SetActive(false);
+        enabled = false;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
