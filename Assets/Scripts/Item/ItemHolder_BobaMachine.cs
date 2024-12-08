@@ -17,6 +17,7 @@ namespace ItemHolder
         [SerializeField] Slider _Slider;
         [SerializeField] Animator _WarningAnimator;
         [SerializeField] TextMeshProUGUI _WarningText;
+        [SerializeField] SpriteRenderer _AromaSprite;
 
         [SerializeField] UnityEvent OnMilkAdded;
         [SerializeField] UnityEvent OnTeaAdded;
@@ -93,6 +94,7 @@ namespace ItemHolder
                 if (_acceptedAromas.Contains(item) == false) return false;
 
                 _currentCup.Aroma = item;
+                _AromaSprite.sprite = item.UISprite;
                 OnAromaAdded?.Invoke();
             }
 
@@ -177,6 +179,7 @@ namespace ItemHolder
 
             _currentCup = new BobaCup();
             _cupAdded = false;
+            _AromaSprite.sprite = null;
             OnReset?.Invoke();
             _Slider.value = 0;
             _inProcess = false;

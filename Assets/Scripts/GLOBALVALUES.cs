@@ -4,7 +4,7 @@ using UnityEngine;
 public static class GLOBALVALUES
 {
     public const string UnassignedString = "UNASSIGNED";
-    public const int MaxMoneyPerDay = 999;
+    public const int MaxMoneyPerDay = 9999;
     public static BobaDatabase BobaDatabaseRef
     {
         get
