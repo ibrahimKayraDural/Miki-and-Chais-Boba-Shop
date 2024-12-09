@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ItemData : ScriptableObject
 {
-    public string Name => _Name;
+    public string DisplayName => _DisplayName;
     public string ID => _ID;
     public bool UseSpritePrefab => _UseSpritePrefab;
     public Sprite UISprite => _UISprite;
@@ -15,7 +15,7 @@ public class ItemData : ScriptableObject
     public int MaxTip => _MaxTip;
     public float NoTipAfterSeconds => _NoTipAfterSeconds;
 
-    [SerializeField] string _Name = GV.UnassignedString;
+    [SerializeField] string _DisplayName = GV.UnassignedString;
     [SerializeField] string _ID = GV.UnassignedString;
     [SerializeField] bool _UseSpritePrefab;
     [SerializeField] Sprite _UISprite;

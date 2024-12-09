@@ -79,8 +79,10 @@ namespace ItemHolder
             if (_heldItem != null) return false;
             if (item == null) return false;
 
-            _heldItem = item;
+            _photonView.RPC(nameof(RPC_SetHeldItem), RpcTarget.All, item.ID);
+
             SetSpriteByData(item, instantiatedSpritePrefab);
+
 
             return true;
         }
@@ -89,11 +91,21 @@ namespace ItemHolder
             item = _heldItem;
             instantiatedSpritePrefab = _instantiatedSpritePrefab;
 
-            _heldItem = null;
+            _photonView.RPC(nameof(RPC_SetHeldItem), RpcTarget.All, NULLITEM);
+
             SetSpriteByData(null, null);
 
             return true;
         }
+
+        const string NULLITEM = "NULLITEMSTRING";
+        [PunRPC]
+        internal void RPC_SetHeldItem(string itemID)
+        {
+            if (itemID == null || itemID == NULLITEM) _heldItem = null;
+            else _heldItem = GV.ItemDatabaseRef.AllItems.Find(x => x.ID == itemID);
+        }
+
         public virtual bool ReplaceItems(ItemHolder_Base other)
         {
             if (other.HeldItem == null && HeldItem == null) return false;

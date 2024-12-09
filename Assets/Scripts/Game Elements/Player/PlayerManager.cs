@@ -31,6 +31,8 @@ public class PlayerManager : MonoBehaviour
         if (!_pv.IsMine)
             return;
 
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
+        var spawn = FindObjectOfType<SpawnPoint>();
+        Vector2 spawnPoint = spawn == null ? Vector2.zero : spawn.transform.position;
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint, Quaternion.identity);
     }
 }

@@ -12,12 +12,12 @@ namespace ItemHolder
         [SerializeField] FloatRange CooldownRange = new FloatRange(5, 10);
         [SerializeField] string _SpriteLayerName = "Foreground";
 
-        ItemData _milk => _BobaDatabase.Milk;
-        ItemData _tea => _BobaDatabase.Tea;
-        ItemData _boba => _BobaDatabase.Boba;
-        ItemData _cup => _BobaDatabase.Cup;
-        List<ItemData> _acceptedAromas => _BobaDatabase.Aromas;
-        BobaDatabase _BobaDatabase => GV.BobaDatabaseRef;
+        ItemData _milk => _ItemDatabase.Milk;
+        ItemData _tea => _ItemDatabase.Tea;
+        ItemData _boba => _ItemDatabase.Boba;
+        ItemData _cup => _ItemDatabase.Cup;
+        List<ItemData> _acceptedAromas => _ItemDatabase.Aromas;
+        ItemDatabase _ItemDatabase => GV.ItemDatabaseRef;
         DayManager _DayManager
         {
             get

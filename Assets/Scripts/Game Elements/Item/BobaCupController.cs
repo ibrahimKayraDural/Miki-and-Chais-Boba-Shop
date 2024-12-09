@@ -40,7 +40,7 @@ public class BobaCup
         randomCup.HasTea = liquidRandom != 1;
         randomCup.HasBoba = Random.Range(0, 2) == 0;
 
-        List<ItemData> aromas = GV.BobaDatabaseRef.Aromas;
+        List<ItemData> aromas = GV.ItemDatabaseRef.Aromas;
         int aromaIDX = Random.Range(-1, aromas.Count);
         randomCup.Aroma = aromaIDX == -1 ? null : aromas[aromaIDX];
 
@@ -79,7 +79,7 @@ public class BobaCup
         bool hasTea = deconstructedStr[1] == "1";
         bool hasBoba = deconstructedStr[2] == "1";
         string aromaID = deconstructedStr[3];
-        ItemData aroma = aromaID == NULLAROMASTRING ? null : GV.BobaDatabaseRef.Aromas.Find(x => x.ID == aromaID);
+        ItemData aroma = aromaID == NULLAROMASTRING ? null : GV.ItemDatabaseRef.Aromas.Find(x => x.ID == aromaID);
 
         return new BobaCup(hasMilk, hasTea, hasBoba, aroma);
     }

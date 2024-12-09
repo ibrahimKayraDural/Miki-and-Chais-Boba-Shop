@@ -43,6 +43,7 @@ MonoBehaviour:
   - RPC_ManageCupSpawn
   - RPC_SetMoney
   - RPC_OnSoldItem
+  - RPC_SetHeldItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

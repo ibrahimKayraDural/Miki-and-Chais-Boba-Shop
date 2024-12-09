@@ -8,16 +8,16 @@ public static class GV //GLOBALVALUES
     public const string UnassignedString = "UNASSIGNED";
     public const int MaxMoneyPerDay = 9999;
     public static string PhotonPrefabPath(string prefabName) => Path.Combine("PhotonPrefabs", prefabName);
-    public static BobaDatabase BobaDatabaseRef
+    public static ItemDatabase ItemDatabaseRef
     {
         get
         {
-            if (AUTO_BobaDatabase == null) AUTO_BobaDatabase = Resources.Load<BobaDatabase>("Database/BobaDatabase");
-            if (AUTO_BobaDatabase == null) Debug.LogError("Boba database cannot be found. Please create a boba database at Resources named ''BobaDatabase''.");
-            return AUTO_BobaDatabase;
+            if (AUTO_ItemDatabase == null) AUTO_ItemDatabase = Resources.Load<ItemDatabase>("Database/ItemDatabase");
+            if (AUTO_ItemDatabase == null) Debug.LogError("Item database cannot be found. Please create an item database at Resources/Database/ named ''ItemDatabase''.");
+            return AUTO_ItemDatabase;
         }
     }
-    static BobaDatabase AUTO_BobaDatabase = null;
+    static ItemDatabase AUTO_ItemDatabase = null;
 
     public static GameObject PhotonInstantiate(GameObject original, Transform parent)
     {
