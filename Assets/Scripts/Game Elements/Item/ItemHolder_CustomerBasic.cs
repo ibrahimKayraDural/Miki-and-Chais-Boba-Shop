@@ -22,7 +22,7 @@ namespace ItemHolder
         ItemData _wantedItem;
         float _customerOrderTime = -1;
 
-        private void Awake()
+        override internal void Awake()
         {
             RequestNewItem();
         }

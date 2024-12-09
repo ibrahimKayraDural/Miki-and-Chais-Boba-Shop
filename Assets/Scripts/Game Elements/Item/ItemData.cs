@@ -15,8 +15,8 @@ public class ItemData : ScriptableObject
     public int MaxTip => _MaxTip;
     public float NoTipAfterSeconds => _NoTipAfterSeconds;
 
-    [SerializeField] string _Name = GLOBALVALUES.UnassignedString;
-    [SerializeField] string _ID = GLOBALVALUES.UnassignedString;
+    [SerializeField] string _Name = GV.UnassignedString;
+    [SerializeField] string _ID = GV.UnassignedString;
     [SerializeField] bool _UseSpritePrefab;
     [SerializeField] Sprite _UISprite;
     [SerializeField] GameObject _SpritePrefab;

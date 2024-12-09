@@ -14,7 +14,7 @@ namespace ItemHolder
 
         bool _isReady;
 
-        private void Awake()
+        override internal void Awake()
         {
             ResetInput();
         }

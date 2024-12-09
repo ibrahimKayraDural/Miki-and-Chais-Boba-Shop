@@ -39,6 +39,10 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - RPC_RequestNewItem
+  - RPC_ManageCupSpawn
+  - RPC_SetMoney
+  - RPC_OnSoldItem
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

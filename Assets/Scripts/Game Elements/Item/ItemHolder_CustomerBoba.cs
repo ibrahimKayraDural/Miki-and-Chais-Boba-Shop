@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace ItemHolder
         ItemData _boba => _BobaDatabase.Boba;
         ItemData _cup => _BobaDatabase.Cup;
         List<ItemData> _acceptedAromas => _BobaDatabase.Aromas;
-        BobaDatabase _BobaDatabase => GLOBALVALUES.BobaDatabaseRef;
+        BobaDatabase _BobaDatabase => GV.BobaDatabaseRef;
         DayManager _DayManager
         {
             get
@@ -29,17 +31,10 @@ namespace ItemHolder
         BobaCup _currentOrder = null;
         float _customerOrderTime = -1;
 
-        private void Awake()
+        internal override void Awake()
         {
-            RequestNewItem();
-        }
-
-        void RequestNewItem()
-        {
-            _currentOrder = BobaCup.GetRandomCup();
-            if (ManageCupSpawn(_currentOrder)) _heldItem = _cup;
-
-            _customerOrderTime = Time.time;
+            base.Awake();
+            SpawnRandomCup();
         }
 
         public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
@@ -73,18 +68,32 @@ namespace ItemHolder
         {
             int totalMoney = _cup.Price;
 
-            int tip = _cup.MaxTip;
-            float timeSpent = Time.time - _customerOrderTime;
-            float noTipDur = Mathf.Max(_cup.NoTipAfterSeconds, 0.1f);
-            float ratio = Mathf.Clamp(1 - (timeSpent / noTipDur), 0, 1);
-            tip = Mathf.CeilToInt(ratio * tip);
-            _DayManager.AddMoney(totalMoney + tip);
+            int tip = 0;
+            if (_customerOrderTime >= 0)
+            {
+                tip = _cup.MaxTip;
+                float timeSpent = Time.time - _customerOrderTime;
+                float noTipDur = Mathf.Max(_cup.NoTipAfterSeconds, 0.1f);
+                float ratio = Mathf.Clamp(1 - (timeSpent / noTipDur), 0, 1);
+                tip = Mathf.CeilToInt(ratio * tip);
+            }
+
+            _photonView.RPC(nameof(RPC_OnSoldItem), RpcTarget.All, totalMoney + tip);
+        }
+
+        [PunRPC]
+        void RPC_OnSoldItem(int gainedMoney)
+        {
+            _DayManager.AddMoney(gainedMoney);
 
             _heldItem = null;
             SetSpriteByData(null, null);
             _customerOrderTime = -1;
 
-            RunCooldown();
+            if(PhotonNetwork.IsMasterClient)
+            {
+                RunCooldown();
+            }
         }
 
         void RunCooldown()
@@ -95,7 +104,7 @@ namespace ItemHolder
         IEnumerator Cooldown()
         {
             yield return new WaitForSeconds(CooldownRange.Random());
-            RequestNewItem();
+            SpawnRandomCup();
         }
 
         public override bool ReplaceItems(ItemHolder_Base other)
@@ -107,21 +116,35 @@ namespace ItemHolder
             return true;
         }
 
-        bool ManageCupSpawn(BobaCup cup)
+        void SpawnRandomCup()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                BobaCup cup = BobaCup.GetRandomCup();
+
+                _photonView.RPC(nameof(RPC_ManageCupSpawn), RpcTarget.All, cup.Serialize());
+            }
+        }
+
+        [PunRPC]
+        void RPC_ManageCupSpawn(string serializedCup)
         {
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
             _instantiatedSpritePrefab = null;
 
             if (_cup != null && _cup.SpritePrefab != null)
             {
-                var go = Instantiate(_cup.SpritePrefab, _SpriteParent);
-                go.transform.localPosition = Vector3.zero;
-                go.transform.localScale = Vector3.one;
+                var go = GV.PhotonInstantiate(_cup.SpritePrefab, _SpriteParent);
 
                 if (go.TryGetComponent(out BobaCupController bcc))
                 {
-                    bcc.Initialize(cup, _SpriteLayerName);
+                    BobaCup cupData = BobaCup.Deserialize(serializedCup);
+                    bcc.Initialize(cupData, _SpriteLayerName);
                     _instantiatedSpritePrefab = go;
+
+                    _heldItem = _cup;
+                    _currentOrder = cupData;
+                    _customerOrderTime = Time.time;
                 }
                 else
                 {
@@ -131,10 +154,12 @@ namespace ItemHolder
             }
             else goto ThrowError;
 
-            return true;
+            return;
 
             ThrowError: Debug.LogError("_Product is not properly set. It must have a SpritePrefab with a BobaCupController Attached.");
-            return false;
+            _customerOrderTime = -1;
+
+            return;
         }
     }
 }

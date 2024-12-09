@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] public class BobaCup
+[System.Serializable]
+public class BobaCup
 {
     public bool HasMilk;
     public bool HasTea;
@@ -39,7 +40,7 @@ using UnityEngine;
         randomCup.HasTea = liquidRandom != 1;
         randomCup.HasBoba = Random.Range(0, 2) == 0;
 
-        List<ItemData> aromas = GLOBALVALUES.BobaDatabaseRef.Aromas;
+        List<ItemData> aromas = GV.BobaDatabaseRef.Aromas;
         int aromaIDX = Random.Range(-1, aromas.Count);
         randomCup.Aroma = aromaIDX == -1 ? null : aromas[aromaIDX];
 
@@ -56,6 +57,31 @@ using UnityEngine;
         if (Aroma != other.Aroma) returnBool = false;
 
         return returnBool;
+    }
+
+    const string NULLAROMASTRING = "NULLAROMA";
+    public string Serialize()
+    {
+        string serializedStr = "";
+        serializedStr += (HasMilk ? "1" : "0") + "/";
+        serializedStr += (HasTea  ? "1" : "0") + "/";
+        serializedStr += (HasBoba ? "1" : "0") + "/";
+        serializedStr += Aroma == null ? NULLAROMASTRING : Aroma.ID;
+        return serializedStr;
+    }
+
+    public static BobaCup Deserialize(string serializedString)
+    {
+        string[] deconstructedStr = serializedString.Split("/");
+        if (deconstructedStr.Length < 4) return null;
+
+        bool hasMilk = deconstructedStr[0] == "1";
+        bool hasTea = deconstructedStr[1] == "1";
+        bool hasBoba = deconstructedStr[2] == "1";
+        string aromaID = deconstructedStr[3];
+        ItemData aroma = aromaID == NULLAROMASTRING ? null : GV.BobaDatabaseRef.Aromas.Find(x => x.ID == aromaID);
+
+        return new BobaCup(hasMilk, hasTea, hasBoba, aroma);
     }
 }
 public class BobaCupController : MonoBehaviour, ISpritePrefabScript
@@ -87,7 +113,7 @@ public class BobaCupController : MonoBehaviour, ISpritePrefabScript
         if (cup.Aroma != null) AromaIcon.sprite = cup.Aroma.UISprite;
         Boba.gameObject.SetActive(cup.HasBoba);
 
-        if(sortingLayerName != null)
+        if (sortingLayerName != null)
         {
             foreach (var sr in GetComponentsInChildren<SpriteRenderer>(true))
             {

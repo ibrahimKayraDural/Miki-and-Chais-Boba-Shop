@@ -9,7 +9,7 @@ namespace ItemHolder
     {
         [SerializeField] ItemData _StarterItem;
 
-        void Awake()
+        override internal void Awake()
         {
             if (_StarterItem != null) TryPutItem(_StarterItem, null);
         }

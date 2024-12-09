@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +7,7 @@ using UnityEngine;
 
 namespace ItemHolder
 {
+    [RequireComponent(typeof(PhotonView))]
     public abstract class ItemHolder_Base : MonoBehaviour
     {
         public ItemData HeldItem => _heldItem;
@@ -16,6 +19,12 @@ namespace ItemHolder
 
         internal ItemData _heldItem = null;
         internal GameObject _instantiatedSpritePrefab = null;
+        internal PhotonView _photonView = null;
+
+        internal virtual void Awake()
+        {
+            _photonView = GetComponent<PhotonView>();
+        }
 
         internal void SetSpriteByData(ItemData item, GameObject instantiatedSpritePrefab)
         {
@@ -41,9 +50,9 @@ namespace ItemHolder
             if (item != null)
             {
                 var go = Instantiate(targetPrefab, _SpriteParent);
-                go.GetComponent<ISpritePrefabScript>()?.Reinitialize(OldISPS);
                 go.transform.localPosition = Vector3.zero;
                 go.transform.localScale = Vector3.one;
+                go.GetComponent<ISpritePrefabScript>()?.Reinitialize(OldISPS);
 
                 _instantiatedSpritePrefab = go;
             }

@@ -31,13 +31,13 @@ namespace ItemHolder
         ItemData _boba => _BobaDatabase.Boba;
         ItemData _cup => _BobaDatabase.Cup;
         List<ItemData> _acceptedAromas => _BobaDatabase.Aromas;
-        BobaDatabase _BobaDatabase => GLOBALVALUES.BobaDatabaseRef;
+        BobaDatabase _BobaDatabase => GV.BobaDatabaseRef;
 
         bool _inProcess;
         BobaCup _currentCup = new BobaCup();
         bool _cupAdded;
 
-        private void Awake()
+        override internal void Awake()
         {
             _Slider.maxValue = _ProcessTime;
             _Slider.value = 0;

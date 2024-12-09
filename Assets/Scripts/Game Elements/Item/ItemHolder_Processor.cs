@@ -15,7 +15,7 @@ namespace ItemHolder
 
         bool _inProcess;
 
-        private void Awake()
+        override internal void Awake()
         {
             _Slider.maxValue = _ProcessTime;
             _Slider.value = 0;

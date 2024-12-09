@@ -303,6 +303,7 @@ GameObject:
   - component: {fileID: 63244777}
   - component: {fileID: 63244776}
   - component: {fileID: 63244775}
+  - component: {fileID: 63244779}
   m_Layer: 7
   m_Name: 'milkSource '
   m_TagString: Untagged
@@ -439,6 +440,28 @@ Transform:
   - {fileID: 1083792980}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &63244779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63244774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 18
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &71233107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1101,7 @@ GameObject:
   - component: {fileID: 361202771}
   - component: {fileID: 361202770}
   - component: {fileID: 361202769}
+  - component: {fileID: 361202772}
   m_Layer: 7
   m_Name: MachineOutput
   m_TagString: Untagged
@@ -1215,6 +1239,28 @@ MonoBehaviour:
   _SortOrder: 0
   Owner: {fileID: 0}
   _OutputItem: {fileID: 11400000, guid: 83443c5c97d58cf43b6b3b973026c73f, type: 2}
+--- !u!114 &361202772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361202767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 17
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &364992591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1357,7 @@ GameObject:
   - component: {fileID: 474546985}
   - component: {fileID: 474546984}
   - component: {fileID: 474546983}
+  - component: {fileID: 474546987}
   m_Layer: 7
   m_Name: OrangeSource
   m_TagString: Untagged
@@ -1447,6 +1494,28 @@ Transform:
   - {fileID: 287880324}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &474546987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474546982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 16
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &497824062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522224891}
   - component: {fileID: 522224890}
+  - component: {fileID: 522224892}
   m_Layer: 0
   m_Name: DayManager
   m_TagString: Untagged
@@ -1583,6 +1653,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &522224892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522224889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 19
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &524709610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,6 +2016,7 @@ GameObject:
   - component: {fileID: 621096246}
   - component: {fileID: 621096245}
   - component: {fileID: 621096244}
+  - component: {fileID: 621096248}
   m_Layer: 7
   m_Name: Trash
   m_TagString: Untagged
@@ -2059,6 +2152,28 @@ Transform:
   - {fileID: 348756382}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &621096248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621096243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 15
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &680773266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2217,7 @@ GameObject:
   - component: {fileID: 686188255}
   - component: {fileID: 686188254}
   - component: {fileID: 686188253}
+  - component: {fileID: 686188257}
   m_Layer: 7
   m_Name: BobaSource
   m_TagString: Untagged
@@ -2238,6 +2354,28 @@ Transform:
   - {fileID: 278971504}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &686188257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686188252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 14
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &688643839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2823,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1260644993}
     m_Modifications:
+    - target: {fileID: 1300404885883209680, guid: 3f05204fcf927924f962429734835580, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5273904798675485121, guid: 3f05204fcf927924f962429734835580, type: 3}
       propertyPath: m_Name
       value: Table
@@ -2751,6 +2893,7 @@ GameObject:
   - component: {fileID: 851986285}
   - component: {fileID: 851986284}
   - component: {fileID: 851986283}
+  - component: {fileID: 851986287}
   m_Layer: 7
   m_Name: AppleSource
   m_TagString: Untagged
@@ -2887,6 +3030,28 @@ Transform:
   - {fileID: 2037650233}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &851986287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851986282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 13
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &873071964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,6 +3064,7 @@ GameObject:
   - component: {fileID: 873071968}
   - component: {fileID: 873071966}
   - component: {fileID: 873071965}
+  - component: {fileID: 873071969}
   m_Layer: 7
   m_Name: MachineInputRedball
   m_TagString: Untagged
@@ -3038,6 +3204,28 @@ MonoBehaviour:
   Owner: {fileID: 0}
   _RequiredItem: {fileID: 11400000, guid: b5816677d2f2641488fc8da318f4bed0, type: 2}
   _ReadySprite: {fileID: 21300000, guid: c294561e24295ff439a9ba5199413c6f, type: 3}
+--- !u!114 &873071969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873071964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 12
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &892233614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,6 +3238,7 @@ GameObject:
   - component: {fileID: 892233617}
   - component: {fileID: 892233616}
   - component: {fileID: 892233615}
+  - component: {fileID: 892233619}
   m_Layer: 7
   m_Name: CupSource
   m_TagString: Untagged
@@ -3186,6 +3375,28 @@ Transform:
   - {fileID: 1667948221}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &892233619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892233614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 11
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &935959234
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,6 +3409,7 @@ GameObject:
   - component: {fileID: 935959235}
   - component: {fileID: 935959237}
   - component: {fileID: 935959236}
+  - component: {fileID: 935959239}
   m_Layer: 7
   m_Name: Processor
   m_TagString: Untagged
@@ -3339,6 +3551,28 @@ Transform:
   - {fileID: 1629888875}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &935959239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935959234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 10
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &946113279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3351,6 +3585,7 @@ GameObject:
   - component: {fileID: 946113282}
   - component: {fileID: 946113281}
   - component: {fileID: 946113280}
+  - component: {fileID: 946113284}
   m_Layer: 7
   m_Name: Customer_Basic
   m_TagString: Untagged
@@ -3494,6 +3729,28 @@ Transform:
   - {fileID: 1621577816}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &946113284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946113279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 9
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &952318383
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,6 +4565,7 @@ GameObject:
   - component: {fileID: 1410177675}
   - component: {fileID: 1410177674}
   - component: {fileID: 1410177673}
+  - component: {fileID: 1410177677}
   m_Layer: 7
   m_Name: Customer_Boba
   m_TagString: Untagged
@@ -4448,6 +4706,28 @@ Transform:
   - {fileID: 1084675569}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1410177677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410177672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 8
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1425095620
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,6 +4740,7 @@ GameObject:
   - component: {fileID: 1425095624}
   - component: {fileID: 1425095623}
   - component: {fileID: 1425095622}
+  - component: {fileID: 1425095625}
   m_Layer: 7
   m_Name: MachineInputBlueBall
   m_TagString: Untagged
@@ -4599,6 +4880,28 @@ MonoBehaviour:
   Owner: {fileID: 0}
   _RequiredItem: {fileID: 11400000, guid: d309d9cc40aab394b944057cabe034dd, type: 2}
   _ReadySprite: {fileID: 21300000, guid: c294561e24295ff439a9ba5199413c6f, type: 3}
+--- !u!114 &1425095625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425095620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1429883706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4611,6 +4914,7 @@ GameObject:
   - component: {fileID: 1429883709}
   - component: {fileID: 1429883708}
   - component: {fileID: 1429883707}
+  - component: {fileID: 1429883711}
   m_Layer: 7
   m_Name: blueballSource
   m_TagString: Untagged
@@ -4754,6 +5058,28 @@ Transform:
   - {fileID: 342407468}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429883711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429883706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1483555693
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,6 +5466,7 @@ GameObject:
   - component: {fileID: 1623592058}
   - component: {fileID: 1623592055}
   - component: {fileID: 1623592054}
+  - component: {fileID: 1623592059}
   m_Layer: 7
   m_Name: redballSource
   m_TagString: Untagged
@@ -5283,6 +5610,28 @@ MonoBehaviour:
   _SortLayer: Item
   _SortOrder: 0
   _Item: {fileID: 11400000, guid: b5816677d2f2641488fc8da318f4bed0, type: 2}
+--- !u!114 &1623592059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623592053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1629888874
 GameObject:
   m_ObjectHideFlags: 0
@@ -5821,6 +6170,7 @@ GameObject:
   - component: {fileID: 1813713926}
   - component: {fileID: 1813713925}
   - component: {fileID: 1813713924}
+  - component: {fileID: 1813713928}
   m_Layer: 7
   m_Name: TeaSource
   m_TagString: Untagged
@@ -5957,6 +6307,28 @@ Transform:
   - {fileID: 952318384}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813713928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813713923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1814346282
 GameObject:
   m_ObjectHideFlags: 0
@@ -6199,6 +6571,7 @@ GameObject:
   - component: {fileID: 1889863534}
   - component: {fileID: 1889863533}
   - component: {fileID: 1889863532}
+  - component: {fileID: 1889863536}
   m_Layer: 7
   m_Name: StrawberrySource
   m_TagString: Untagged
@@ -6335,6 +6708,28 @@ Transform:
   - {fileID: 806951497}
   m_Father: {fileID: 1260644993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889863536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889863531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1962992921
 GameObject:
   m_ObjectHideFlags: 0
@@ -7102,6 +7497,10 @@ PrefabInstance:
     - target: {fileID: 1082756113440049136, guid: 95765976f027add4897a2a09d0c3875c, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195281627183434264, guid: 95765976f027add4897a2a09d0c3875c, type: 3}
+      propertyPath: sceneViewId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2036078149168309425, guid: 95765976f027add4897a2a09d0c3875c, type: 3}
       propertyPath: m_IsActive

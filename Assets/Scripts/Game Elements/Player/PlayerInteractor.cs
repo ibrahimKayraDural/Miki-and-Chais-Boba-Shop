@@ -25,6 +25,11 @@ public class PlayerInteractor : MonoBehaviour
         if (Input.GetButtonDown("Interact")) Interact();
     }
 
+    public void Deactivate()
+    {
+        enabled = false;
+    }
+
     void Interact()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, _RaycastLenght, _ReceiverLayer);
