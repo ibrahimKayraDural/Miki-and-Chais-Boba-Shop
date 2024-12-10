@@ -11,6 +11,7 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
             if (_StarterItem != null) TryPutItem(_StarterItem, null);
         }
     }

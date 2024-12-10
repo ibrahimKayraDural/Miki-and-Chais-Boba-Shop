@@ -121,13 +121,10 @@ public class BobaCupController : MonoBehaviour, ISpritePrefabScript
             }
         }
     }
-    public void Reinitialize(ISpritePrefabScript oldInterfaceScript = null)
+    public void Reinitialize(BobaCup cup)
     {
-        if (oldInterfaceScript == null) return;
-        BobaCupController bcc = oldInterfaceScript as BobaCupController;
-        if (bcc == null) return;
-        if (bcc.CupData == null) return;
+        if (cup == null) return;
 
-        Initialize(bcc.CupData);
+        Initialize(cup);
     }
 }

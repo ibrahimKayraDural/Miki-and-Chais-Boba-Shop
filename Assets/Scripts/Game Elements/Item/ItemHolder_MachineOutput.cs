@@ -17,19 +17,19 @@ namespace ItemHolder
             if (_OutputItem == null) return;
 
             _heldItem = _OutputItem;
-            SetSpriteByData(_OutputItem, null);
+            SetSpriteByData(_OutputItem, InstantiatedCup);
 
             return;
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab) => false;
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup) => false;
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = _heldItem;
-            instantiatedSpritePrefab = null;
+            cup = _instantiatedCup;
 
             _heldItem = null;
-            SetSpriteByData(null, null);
+            SetSpriteToNull();
             Owner.CheckStatus();
 
             return true;
@@ -38,8 +38,8 @@ namespace ItemHolder
         {
             if (other.HeldItem != null) return false;
 
-            TryPickItem(out ItemData item, out _);
-            other.TryPutItem(item, null);
+            TryPickItem(out ItemData item, out BobaCup cup);
+            other.TryPutItem(item, cup);
 
             return true;
         }

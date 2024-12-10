@@ -44,6 +44,15 @@ MonoBehaviour:
   - RPC_SetMoney
   - RPC_OnSoldItem
   - RPC_SetHeldItem
+  - SetSpriteByData
+  - SetSprite
+  - SetSpriteItemID
+  - SetSpriteSerialized
+  - SetSpriteToNull
+  - RPC_SetSpriteByData
+  - RPC_SetSpriteItemID
+  - RPC_SetSpriteSerialized
+  - RPC_SetSpriteToNull
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

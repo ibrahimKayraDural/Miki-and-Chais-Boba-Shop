@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,29 +17,31 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
             ResetInput();
         }
         public void ResetInput()
         {
             _isReady = false;
-            SetSpriteByData(_RequiredItem, null);
+            SetSpriteByData(_RequiredItem, InstantiatedCup);
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup)
         {
             if (_isReady) return false;
             if (item != _RequiredItem) return false;
 
             _isReady = true;
-            SetSprite(_ReadySprite);
+            GV.SerializeSprite(_ReadySprite, out int w, out int h, out byte[] b);
+            SetSpriteSerialized(w, h, b);
             Owner.CheckStatus();
 
             return true;
         }
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = null;
-            instantiatedSpritePrefab = null;
+            cup = null;
             return false;
         }
         public override bool ReplaceItems(ItemHolder_Base other)

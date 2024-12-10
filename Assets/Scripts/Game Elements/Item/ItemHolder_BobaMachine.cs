@@ -39,11 +39,13 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
+
             _Slider.maxValue = _ProcessTime;
             _Slider.value = 0;
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup)
         {
             if (HeldItem != null)
             {
@@ -111,19 +113,19 @@ namespace ItemHolder
             }
         }
 
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = null;
-            instantiatedSpritePrefab = null;
+            cup = null;
 
             if (_inProcess) return false;
             if (HeldItem == null) return false;
 
             item = _heldItem;
-            instantiatedSpritePrefab = _instantiatedSpritePrefab;
+            cup = _instantiatedCup;
 
             _heldItem = null;
-            SetSpriteByData(null, null);
+            SetSpriteToNull();
             TryStartProcess();
 
             return true;
@@ -132,8 +134,8 @@ namespace ItemHolder
         {
             if (other.HeldItem == null)
             {
-                TryPickItem(out ItemData item, out GameObject isp);
-                other.TryPutItem(item, isp);
+                TryPickItem(out ItemData item, out BobaCup cup);
+                other.TryPutItem(item, cup);
             }
             else
             {
@@ -188,7 +190,6 @@ namespace ItemHolder
         bool ManageCupSpawn()
         {
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
-            _instantiatedSpritePrefab = null;
 
             if (_cup != null && _cup.SpritePrefab != null)
             {
@@ -199,7 +200,7 @@ namespace ItemHolder
                 if (go.TryGetComponent(out BobaCupController bcc))
                 {
                     bcc.Initialize(_currentCup);
-                    _instantiatedSpritePrefab = go;
+                    _instantiatedCup = _currentCup;
                 }
                 else
                 {

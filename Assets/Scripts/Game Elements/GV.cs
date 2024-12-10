@@ -8,6 +8,32 @@ public static class GV //GLOBALVALUES
     public const string UnassignedString = "UNASSIGNED";
     public const int MaxMoneyPerDay = 9999;
     public static string PhotonPrefabPath(string prefabName) => Path.Combine("PhotonPrefabs", prefabName);
+    public static int GetPhotonViewID(PhotonView view)
+    {
+        if (view == null) return -1;
+        return view.ViewID;
+    }
+    public static int GetPhotonViewID(GameObject go)
+    {
+        if (go == null) return -1;
+        if (go.TryGetComponent(out PhotonView view) == false) return -1;
+        return view.ViewID;
+    }
+
+    public static void SerializeSprite(Sprite sprite, out int width, out int height, out byte[] bytes)
+    {
+        width = 0;
+        height = 0;
+        bytes = new byte[0];
+
+        if (sprite == null) return;
+
+        Texture2D tex = sprite.texture;
+        width = tex.width;
+        height = tex.height;
+        bytes = ImageConversion.EncodeToPNG(tex);
+    }
+
     public static ItemDatabase ItemDatabaseRef
     {
         get

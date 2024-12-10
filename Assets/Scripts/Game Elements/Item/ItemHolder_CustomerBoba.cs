@@ -37,27 +37,22 @@ namespace ItemHolder
             SpawnRandomCup();
         }
 
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = null;
-            instantiatedSpritePrefab = null;
+            cup = null;
             return false;
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup)
         {
             if (_heldItem != _cup) return false;
             if (item != _cup) return false;
 
-            if (instantiatedSpritePrefab == null) return false;
-            if (instantiatedSpritePrefab.TryGetComponent(out BobaCupController otherBCC) == false) return false;
+            if (_instantiatedCup == null) return false;
+            if (cup == null) return false;
 
-            if (_instantiatedSpritePrefab == null) return false;
-            if (_instantiatedSpritePrefab.TryGetComponent(out BobaCupController selfBCC) == false) return false;
-
-            if (selfBCC.CupData == null) return false;
-            if (otherBCC.CupData == null) return false;
-            if (selfBCC.CupData.Compare(otherBCC.CupData) == false) return false;
+            if (cup.Compare(_instantiatedCup) == false) return false;
 
             OnSoldItem();
 
@@ -82,15 +77,15 @@ namespace ItemHolder
         }
 
         [PunRPC]
-        void RPC_OnSoldItem(int gainedMoney)
+        internal void RPC_OnSoldItem(int gainedMoney)
         {
             _DayManager.AddMoney(gainedMoney);
 
             _heldItem = null;
-            SetSpriteByData(null, null);
+            SetSpriteToNull();
             _customerOrderTime = -1;
 
-            if(PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient)
             {
                 RunCooldown();
             }
@@ -109,7 +104,7 @@ namespace ItemHolder
 
         public override bool ReplaceItems(ItemHolder_Base other)
         {
-            if (TryPutItem(other.HeldItem, other.InstantiatedSpritePrefab) == false) return false;
+            if (TryPutItem(other.HeldItem, other.InstantiatedCup) == false) return false;
 
             other.TryPickItem(out _, out _);
 
@@ -127,10 +122,9 @@ namespace ItemHolder
         }
 
         [PunRPC]
-        void RPC_ManageCupSpawn(string serializedCup)
+        internal void RPC_ManageCupSpawn(string serializedCup)
         {
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
-            _instantiatedSpritePrefab = null;
 
             if (_cup != null && _cup.SpritePrefab != null)
             {
@@ -140,9 +134,9 @@ namespace ItemHolder
                 {
                     BobaCup cupData = BobaCup.Deserialize(serializedCup);
                     bcc.Initialize(cupData, _SpriteLayerName);
-                    _instantiatedSpritePrefab = go;
 
                     _heldItem = _cup;
+                    _instantiatedCup = cupData;
                     _currentOrder = cupData;
                     _customerOrderTime = Time.time;
                 }

@@ -10,6 +10,8 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
+
             if (_Item == null)
             {
                 Debug.LogError("No item was assigned to " + gameObject.name);
@@ -17,22 +19,21 @@ namespace ItemHolder
             }
         }
 
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = _Item;
-            instantiatedSpritePrefab = null;
+            cup = _instantiatedCup;
             return true;
         }
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab) => false;
+        public override bool TryPutItem(ItemData item, BobaCup cup) => false;
         public override bool ReplaceItems(ItemHolder_Base other)
         {
             if (other.HeldItem != null) return false;
 
-            TryPickItem(out ItemData item1, out _);
-            other.TryPickItem(out ItemData item2, out _);
+            TryPickItem(out ItemData item, out BobaCup cup);
+            other.TryPickItem(out _, out _);
 
-            other.TryPutItem(item1, null);
-            TryPutItem(item2, null);
+            other.TryPutItem(item, cup);
             return true;
         }
     }

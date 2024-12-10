@@ -17,12 +17,14 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
+
             _Slider.maxValue = _ProcessTime;
             _Slider.value = 0;
             _Slider.gameObject.SetActive(false);
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup)
         {
             if (_inProcess) return false;
             if (_heldItem != null) return false;
@@ -33,17 +35,17 @@ namespace ItemHolder
 
             return true;
         }
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = null;
-            instantiatedSpritePrefab = null;
+            cup = null;
 
             if (HeldItem != _Product) return false;
             item = _heldItem;
-            instantiatedSpritePrefab = _instantiatedSpritePrefab;
+            cup = _instantiatedCup;
 
             _heldItem = null;
-            SetSpriteByData(null, null);
+            SetSpriteToNull();
 
             return true;
         }
@@ -54,7 +56,7 @@ namespace ItemHolder
             {
                 if (TryPickItem(out _, out _))
                 {
-                    other.TryPutItem(_Product, null);
+                    other.TryPutItem(_Product, _instantiatedCup);
                     return true;
                 }
             }

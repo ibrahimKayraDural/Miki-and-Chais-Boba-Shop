@@ -24,6 +24,7 @@ namespace ItemHolder
 
         override internal void Awake()
         {
+            base.Awake();
             RequestNewItem();
         }
 
@@ -31,18 +32,18 @@ namespace ItemHolder
         {
             if (_PossibleItems.Count <= 0) return;
             _wantedItem = _PossibleItems[Random.Range(0, _PossibleItems.Count)];
-            SetSpriteByData(_wantedItem, null);
+            SetSpriteByData(_wantedItem, _instantiatedCup);
             _customerOrderTime = Time.time;
         }
 
-        public override bool TryPickItem(out ItemData item, out GameObject instantiatedSpritePrefab)
+        public override bool TryPickItem(out ItemData item, out BobaCup cup)
         {
             item = null;
-            instantiatedSpritePrefab = null;
+            cup = null;
             return false;
         }
 
-        public override bool TryPutItem(ItemData item, GameObject instantiatedSpritePrefab)
+        public override bool TryPutItem(ItemData item, BobaCup cup)
         {
             if (_heldItem != null) return false;
             if (item == null) return false;
@@ -64,7 +65,7 @@ namespace ItemHolder
             _DayManager.AddMoney(totalMoney + tip);
 
             _wantedItem = null;
-            SetSpriteByData(null, null);
+            SetSpriteToNull();
             _customerOrderTime = -1;
 
             RunCooldown();
@@ -85,10 +86,10 @@ namespace ItemHolder
         {
             if (other.HeldItem != _wantedItem) return false;
 
-            other.TryPickItem(out ItemData item, out _);
+            other.TryPickItem(out ItemData item, out BobaCup cup);
             other.TryPutItem(null, null);
 
-            TryPutItem(item, null);
+            TryPutItem(item, cup);
 
             return true;
         }
