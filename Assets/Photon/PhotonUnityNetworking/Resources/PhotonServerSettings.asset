@@ -53,6 +53,11 @@ MonoBehaviour:
   - RPC_SetSpriteItemID
   - RPC_SetSpriteSerialized
   - RPC_SetSpriteToNull
+  - RPC_OnProcessDone
+  - RPC_RunItem
+  - RPC_RunWarningText
+  - RPC_TryStartProcess
+  - RPC_SyncProgressBar
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

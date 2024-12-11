@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerMovementController : MonoBehaviour
     public Vector2 PersistentDirection => _persistentDirection;
 
     [SerializeField] float _Speed = 1;
+    [SerializeField] List<Transform> _UnflipableTransforms;
 
     Rigidbody2D _rb;
     Vector2 _direction = Vector2.zero;
@@ -45,7 +47,17 @@ public class PlayerMovementController : MonoBehaviour
 
     void Flip()
     {
+        List<Vector3> scales = new List<Vector3>();
+        foreach (var t in _UnflipableTransforms) scales.Add(t.localScale);
+
         _isLookingRight = !_isLookingRight;
         transform.localScale = new Vector3(_isLookingRight ? 1 : -1, 1, 1);
+
+        for (int i = 0; i < scales.Count; i++)
+        {
+            Vector3 scale = scales[i];
+            scale.x *= -1;
+            _UnflipableTransforms[i].localScale = scale;
+        }
     }
 }

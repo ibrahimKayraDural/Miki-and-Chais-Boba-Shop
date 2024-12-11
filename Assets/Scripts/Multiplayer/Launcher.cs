@@ -19,7 +19,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
-        Debug.Log("Connecting to servers...");
+        //Debug.Log("Connecting to servers...");
         MenuManager.Instance.openMenu("loading");
         PhotonNetwork.AutomaticallySyncScene = true;
     }
@@ -27,19 +27,20 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
-        Debug.Log("Joining lobby...");
+        //Debug.Log("Joining lobby...");
     }
     bool connectFirstTime = true;
     public override void OnJoinedLobby()
     {
-        MenuManager.Instance.openMenu("main");
         if (connectFirstTime)
         {
             PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
 
             connectFirstTime = false;
         }
-        Debug.Log("Joined lobby!");
+        MenuManager.Instance.openMenu("main");
+
+        //Debug.Log("Joined lobby!");
     }
 
 

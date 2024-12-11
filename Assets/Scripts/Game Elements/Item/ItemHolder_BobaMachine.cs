@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace ItemHolder
         {
             base.Awake();
 
-            _Slider.maxValue = _ProcessTime;
+            _Slider.maxValue = 1;
             _Slider.value = 0;
         }
 
@@ -59,25 +60,30 @@ namespace ItemHolder
                 return false;
             }
 
+            return TryAddItem(item.ID);
+        }
+
+        internal bool TryAddItem(string itemID)
+        {
+            ItemData item = GV.ItemDatabaseRef.GetItemDataByNameOrID(itemID);
+
+            string itemSTR = GV.UnassignedString;
+            string aromaID = GV.UnassignedString;
+
             if (item == _milk)
             {
                 if (_currentCup.HasMilk) return false;
-                _currentCup.HasMilk = true;
-                OnMilkAdded?.Invoke();
-                TryStartProcess();
+                itemSTR = "milk";
             }
             else if (item == _tea)
             {
                 if (_currentCup.HasTea) return false;
-                _currentCup.HasTea = true;
-                OnTeaAdded?.Invoke();
-                TryStartProcess();
+                itemSTR = "tea";
             }
             else if (item == _boba)
             {
                 if (_currentCup.HasBoba) return false;
-                _currentCup.HasBoba = true;
-                OnBobaAdded?.Invoke();
+                itemSTR = "boba";
             }
             else if (item == _cup)
             {
@@ -86,24 +92,56 @@ namespace ItemHolder
                     RunWarningText("Put tea or milk first...");
                     return false;
                 }
-                _cupAdded = true;
-                OnCupAdded?.Invoke();
-                TryStartProcess();
+                itemSTR = "cup";
             }
             else
             {
                 if (_currentCup.Aroma != null) return false;
                 if (_acceptedAromas.Contains(item) == false) return false;
-
-                _currentCup.Aroma = item;
-                _AromaSprite.sprite = item.UISprite;
-                OnAromaAdded?.Invoke();
+                itemSTR = "aroma";
+                aromaID = item.ID;
             }
 
+            _photonView.RPC(nameof(RPC_RunItem), RpcTarget.All, itemSTR, aromaID);
             return true;
         }
 
-        private void RunWarningText(string text)
+        [PunRPC]
+        internal void RPC_RunItem(string item, string aromaID)
+        {
+            switch (item)
+            {
+                case "milk":
+                    _currentCup.HasMilk = true;
+                    OnMilkAdded?.Invoke();
+                    RPC_TryStartProcess();
+                    break;
+                case "tea":
+                    _currentCup.HasTea = true;
+                    OnTeaAdded?.Invoke();
+                    RPC_TryStartProcess();
+                    break;
+                case "boba":
+                    _currentCup.HasBoba = true;
+                    OnBobaAdded?.Invoke();
+                    break;
+                case "cup":
+                    _cupAdded = true;
+                    OnCupAdded?.Invoke();
+                    RPC_TryStartProcess();
+                    break;
+                case "aroma":
+                    ItemData itemData = GV.ItemDatabaseRef.GetItemDataByNameOrID(aromaID);
+                    _currentCup.Aroma = itemData;
+                    _AromaSprite.sprite = itemData.UISprite;
+                    OnAromaAdded?.Invoke();
+                    break;
+            }
+        }
+
+        internal void RunWarningText(string text) => _photonView.RPC(nameof(RPC_RunWarningText), RpcTarget.All, text);
+        [PunRPC]
+        internal void RPC_RunWarningText(string text)
         {
             if (_WarningAnimator.GetCurrentAnimatorStateInfo(0).IsName("idle") || text != _WarningText.text)
             {
@@ -124,9 +162,9 @@ namespace ItemHolder
             item = _heldItem;
             cup = _instantiatedCup;
 
-            _heldItem = null;
+            _photonView.RPC(nameof(RPC_SetHeldItem), RpcTarget.All, NULLITEM);
             SetSpriteToNull();
-            TryStartProcess();
+            _photonView.RPC(nameof(RPC_TryStartProcess), RpcTarget.MasterClient);
 
             return true;
         }
@@ -148,8 +186,18 @@ namespace ItemHolder
             return false;
         }
 
-        void TryStartProcess()
+        void SyncProgressBar(float amount) => _photonView.RPC(nameof(RPC_SyncProgressBar), RpcTarget.All, amount);
+
+        [PunRPC]
+        void RPC_SyncProgressBar(float amount)
         {
+            _Slider.value = amount;
+        }
+
+        [PunRPC]
+        void RPC_TryStartProcess()
+        {
+            if (PhotonNetwork.IsMasterClient == false) return;
             if (_inProcess) return;
             if ((_currentCup.HasMilk || _currentCup.HasTea) == false) return;
             if (_cupAdded == false) return;
@@ -160,22 +208,24 @@ namespace ItemHolder
         }
         IEnumerator Process()
         {
+            if (PhotonNetwork.IsMasterClient == false) yield break;
+
             float currentProgress = 0;
-            _Slider.maxValue = _ProcessTime;
-            _Slider.value = 0;
+            SyncProgressBar(0);
 
             _inProcess = true;
-            while (true)
+            while (true && _ProcessTime > 0)
             {
                 yield return new WaitForSeconds(_ProgressInterval);
                 currentProgress += _ProgressInterval;
-                _Slider.value = currentProgress;
+                SyncProgressBar(currentProgress / _ProcessTime);
                 if (currentProgress >= _ProcessTime) break;
             }
 
-            OnProcessDone();
+            _photonView.RPC(nameof(RPC_OnProcessDone), RpcTarget.All);
         }
-        void OnProcessDone()
+        [PunRPC]
+        void RPC_OnProcessDone()
         {
             if (ManageCupSpawn()) _heldItem = _cup;
 
