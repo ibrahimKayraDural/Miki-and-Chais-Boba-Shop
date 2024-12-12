@@ -33,6 +33,6 @@ public class PlayerManager : MonoBehaviour
 
         var spawn = FindObjectOfType<SpawnPoint>();
         Vector2 spawnPoint = spawn == null ? Vector2.zero : spawn.transform.position;
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint, Quaternion.identity);
+        var go = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), spawnPoint, Quaternion.identity);
     }
 }

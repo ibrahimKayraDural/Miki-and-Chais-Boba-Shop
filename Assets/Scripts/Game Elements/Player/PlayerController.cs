@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerMovementController _PlayerMovementController;
     [SerializeField] PlayerInteractor _PlayerInteractor;
     [SerializeField] PlayerCamera _PlayerCamera;
+    [SerializeField] PlayerAnimationController _PlayerAnimationController;
 
     void Awake()
     {
@@ -22,5 +23,7 @@ public class PlayerController : MonoBehaviour
             _PlayerInteractor.Deactivate();
             _PlayerCamera.Deactivate();
         }
+
+        _PlayerAnimationController.Initialize(@PhotonView.Owner.ActorNumber);
     }
 }
