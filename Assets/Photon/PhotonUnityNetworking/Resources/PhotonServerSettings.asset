@@ -58,6 +58,7 @@ MonoBehaviour:
   - RPC_RunWarningText
   - RPC_TryStartProcess
   - RPC_SyncProgressBar
+  - SetCustomerVisual
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

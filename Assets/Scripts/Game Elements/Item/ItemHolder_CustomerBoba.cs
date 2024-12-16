@@ -11,6 +11,7 @@ namespace ItemHolder
     {
         [SerializeField] FloatRange CooldownRange = new FloatRange(5, 10);
         [SerializeField] string _SpriteLayerName = "Foreground";
+        [SerializeField] CustomerUIVisual _CustomerUIVisual;
 
         ItemData _milk => _ItemDatabase.Milk;
         ItemData _tea => _ItemDatabase.Tea;
@@ -80,9 +81,10 @@ namespace ItemHolder
         internal void RPC_OnSoldItem(int gainedMoney)
         {
             _DayManager.AddMoney(gainedMoney);
+            _CustomerUIVisual.Clean();
+            SetSpriteToNull();
 
             _heldItem = null;
-            SetSpriteToNull();
             _customerOrderTime = -1;
 
             if (PhotonNetwork.IsMasterClient)
@@ -125,6 +127,7 @@ namespace ItemHolder
         internal void RPC_ManageCupSpawn(string serializedCup)
         {
             foreach (var child in _SpriteParent.Cast<Transform>()) Destroy(child.gameObject);
+            _CustomerUIVisual.Clean();
 
             if (_cup != null && _cup.SpritePrefab != null)
             {
@@ -134,6 +137,7 @@ namespace ItemHolder
                 {
                     BobaCup cupData = BobaCup.Deserialize(serializedCup);
                     bcc.Initialize(cupData, _SpriteLayerName);
+                    _CustomerUIVisual.InitializeRecipie(cupData);
 
                     _heldItem = _cup;
                     _instantiatedCup = cupData;
