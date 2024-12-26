@@ -64,7 +64,7 @@ public class BobaCup
     {
         string serializedStr = "";
         serializedStr += (HasMilk ? "1" : "0") + "/";
-        serializedStr += (HasTea  ? "1" : "0") + "/";
+        serializedStr += (HasTea ? "1" : "0") + "/";
         serializedStr += (HasBoba ? "1" : "0") + "/";
         serializedStr += Aroma == null ? NULLAROMASTRING : Aroma.ID;
         return serializedStr;
@@ -88,13 +88,14 @@ public class BobaCupController : MonoBehaviour, ISpritePrefabScript
 {
     public BobaCup CupData => _cupData;
 
-    [SerializeField] SpriteRenderer Lid1;
-    [SerializeField] SpriteRenderer Lid2;
-    [SerializeField] SpriteRenderer Water;
-    [SerializeField] SpriteRenderer AromaIcon;
-    [SerializeField] SpriteRenderer Boba;
-    [SerializeField] Color TeaColor = Color.red;
-    [SerializeField] Color MilkColor = Color.white;
+    [SerializeField] SpriteRenderer _Cup;
+    [SerializeField] SpriteRenderer _Aroma;
+    [SerializeField] SpriteRenderer _Boba;
+
+    [SerializeField] Sprite _Milk;
+    [SerializeField] Sprite _Tea;
+    [SerializeField] Sprite _MilkAndTea;
+    [SerializeField] List<SerializableKeyValuePair<string, Sprite>> _IdToAromaIcon = new List<SerializableKeyValuePair<string, Sprite>>();
 
     BobaCup _cupData = null;
 
@@ -104,14 +105,16 @@ public class BobaCupController : MonoBehaviour, ISpritePrefabScript
 
         //Debug.Log($"milk:{cup.HasMilk}, tea:{cup.HasTea}, boba{cup.HasBoba}, aroma{cup.Aroma}");
 
-        Lid1.color = cup.HasTea ? TeaColor : MilkColor;
-        Lid2.color = cup.HasMilk ? MilkColor : TeaColor;
+        if (cup.HasMilk && cup.HasTea) _Cup.sprite = _MilkAndTea;
+        else _Cup.sprite = cup.HasMilk ? _Milk : _Tea;
 
-        if (cup.HasMilk && cup.HasTea) Water.color = Color.Lerp(TeaColor, MilkColor, .5f);
-        else Water.color = cup.HasTea ? TeaColor : MilkColor;
+        if (cup.Aroma != null)
+        {
+            int aromaInt = _IdToAromaIcon.FindIndex(x => x.Key == cup.Aroma.ID);
+            if (aromaInt != -1) _Aroma.sprite = _IdToAromaIcon[aromaInt].Value;
+        }
 
-        if (cup.Aroma != null) AromaIcon.sprite = cup.Aroma.UISprite;
-        Boba.gameObject.SetActive(cup.HasBoba);
+        _Boba.gameObject.SetActive(cup.HasBoba);
 
         if (sortingLayerName != null)
         {

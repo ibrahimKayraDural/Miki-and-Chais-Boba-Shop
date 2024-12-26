@@ -11,6 +11,7 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] float _RaycastLenght = 1;
     [SerializeField] LayerMask _ReceiverLayer = 1 << 7;
     [SerializeField] ItemHolder_Player _PlayerItemHolder;
+    [SerializeField] PlayerAnimationController _AnimController;
 
     Vector2 _direction => _pmc != null ? _pmc.PersistentDirection : Vector2.right;
     PlayerMovementController _pmc;
@@ -52,7 +53,11 @@ public class PlayerInteractor : MonoBehaviour
         bool TryReplacing()
         {
             if (ih == null || _PlayerItemHolder == null) return false;
-            return ih.ReplaceItems(_PlayerItemHolder);
+            bool hasHeld = ih.ReplaceItems(_PlayerItemHolder);
+
+            _AnimController.SetIsHolding(_heldItem != null);
+
+            return hasHeld;
         }
     }
 

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35a58cad2924524b8ecf79eaf6dd766, type: 3}
   m_Name: Boba
   m_EditorClassIdentifier: 
-  _Name: Boba
+  _DisplayName: Boba
   _ID: boba
   _UseSpritePrefab: 0
-  _UISprite: {fileID: 21300000, guid: ef23f7c61ad63bd4695c74f68063706e, type: 3}
+  _UISprite: {fileID: 21300000, guid: 968c1c204826351468df6cba35fa16dc, type: 3}
   _SpritePrefab: {fileID: 0}
   _HoldingOffset: {x: 0, y: 0}
   _Price: 10

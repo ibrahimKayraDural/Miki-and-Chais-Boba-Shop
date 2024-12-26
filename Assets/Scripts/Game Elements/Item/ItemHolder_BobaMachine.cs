@@ -18,7 +18,7 @@ namespace ItemHolder
         [SerializeField] Slider _Slider;
         [SerializeField] Animator _WarningAnimator;
         [SerializeField] TextMeshProUGUI _WarningText;
-        [SerializeField] SpriteRenderer _AromaSprite;
+        [SerializeField] BobaMachineAromaLightController _AromaLightController;
 
         [SerializeField] UnityEvent OnMilkAdded;
         [SerializeField] UnityEvent OnTeaAdded;
@@ -133,7 +133,7 @@ namespace ItemHolder
                 case "aroma":
                     ItemData itemData = GV.ItemDatabaseRef.GetItemDataByNameOrID(aromaID);
                     _currentCup.Aroma = itemData;
-                    _AromaSprite.sprite = itemData.UISprite;
+                    _AromaLightController.SetAromaObject(itemData.ID);
                     OnAromaAdded?.Invoke();
                     break;
             }
@@ -231,7 +231,7 @@ namespace ItemHolder
 
             _currentCup = new BobaCup();
             _cupAdded = false;
-            _AromaSprite.sprite = null;
+            _AromaLightController.SetAromaObject("NULL");
             OnReset?.Invoke();
             _Slider.value = 0;
             _inProcess = false;

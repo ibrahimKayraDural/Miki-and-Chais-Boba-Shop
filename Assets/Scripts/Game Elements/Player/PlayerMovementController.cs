@@ -10,6 +10,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField] float _Speed = 1;
     [SerializeField] List<Transform> _UnflipableTransforms;
+    [SerializeField] PlayerAnimationController _AnimController;
 
     Rigidbody2D _rb;
     Vector2 _direction = Vector2.zero;
@@ -28,7 +29,10 @@ public class PlayerMovementController : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 targetPos = transform.position;
-        targetPos += _direction * _Speed * Time.fixedDeltaTime;
+        Vector2 velocity = _direction * _Speed * Time.fixedDeltaTime;
+        targetPos += velocity;
+
+        _AnimController.SetVelocity(_direction.magnitude);
 
         bool? isHeadingRight = null;
         float xDiff = transform.position.x - targetPos.x;
