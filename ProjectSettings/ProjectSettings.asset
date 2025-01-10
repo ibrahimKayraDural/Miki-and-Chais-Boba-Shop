@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Boba Brewers
   productName: Miki and Chais' Boba Shop
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -286,7 +286,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: f6dfe2b59faac484a8f11704b8965d60, type: 3}
+      m_Icon: {fileID: 2800000, guid: 14587be4440b2444ebdaca62693ffd06, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

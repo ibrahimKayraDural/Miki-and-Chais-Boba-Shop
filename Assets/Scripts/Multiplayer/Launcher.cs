@@ -11,6 +11,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 {
     public static Launcher Instance;
 
+    [SerializeField] Animator _MainMenuAnimator;
+
     void Awake()
     {
         Instance = this;
@@ -37,6 +39,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             PhotonNetwork.NickName = "Player " + Random.Range(0, 1000).ToString("0000");
 
             connectFirstTime = false;
+            _MainMenuAnimator.SetTrigger("play");
         }
         MenuManager.Instance.openMenu("main");
 
@@ -97,7 +100,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public GameObject playerListItem;
     public Transform playerListContent;
     public GameObject startGameButton;
-    
+
     public override void OnJoinedRoom()
     {
         MenuManager.Instance.openMenu("room");
@@ -107,7 +110,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Destroy(child.gameObject);
         }
-        
+
 
         Player[] players = PhotonNetwork.PlayerList;
 
@@ -130,7 +133,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Destroy(child.gameObject);
         }
-        
+
 
         Player[] players = PhotonNetwork.PlayerList;
 
